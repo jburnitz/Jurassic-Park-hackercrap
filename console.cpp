@@ -8,7 +8,7 @@ Console::Console(QWidget *parent) : QTextEdit()
     setFont(QFont("Terminal", 14));
 
     QPalette p = palette();
-    p.setColor(QPalette::Base, QColor(0, 0, 200).light());
+    p.setColor(QPalette::Base, QColor(0, 0, 230).light());
     setPalette(p);
 
     sBar = this->verticalScrollBar();
@@ -27,17 +27,22 @@ void Console::InsertText(){
 
     insertPlainText(lines[lineCounter]);
 
-    if(lineCounter==2)
-        timer->setInterval(100);
+    if(lineCounter==3){
+        timer->setInterval(140);
+    }
 
     if(lineCounter<67)
         lineCounter++;
 
+    //set the newman bomb to go off in a second
     if (lineCounter == 66)
-        emit( StartHackerCrap() );
+        QTimer::singleShot(1000, this, SLOT(fireEvents()) );
 
 
     //this scrolls the console
     sBar->setValue(sBar->maximum());
 }
 
+void Console::fireEvents(){
+    emit( StartHackerCrap() );
+}

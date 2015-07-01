@@ -20,8 +20,10 @@ private:
     int lineCounter;
     QTimer *timer;
     QScrollBar *sBar;
+
 private slots:
     void InsertText();
+    void fireEvents();
 
 signals:
    StartHackerCrap();

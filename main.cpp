@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     QObject::connect( console, SIGNAL(StartHackerCrap()), newman, SLOT(Start()));
 
     w.show();
+    //w.showFullScreen();
     console->Begin();
 
     return a.exec();
