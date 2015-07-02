@@ -26,7 +26,7 @@ private slots:
     void fireEvents();
 
 signals:
-   StartHackerCrap();
+   void StartHackerCrap();
 };
 
  const QString lines[] = { "Jurassic Park, Security System Interface\n",

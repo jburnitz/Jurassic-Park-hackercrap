@@ -21,3 +21,10 @@ HEADERS  += \
     newman.h
 
 FORMS    +=
+
+DISTFILES += \
+    ahahah.gif \
+    jurassic-park-screen-1920x1440.jpg
+
+RESOURCES += \
+    resources.qrc

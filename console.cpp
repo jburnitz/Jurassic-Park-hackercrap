@@ -4,6 +4,9 @@
 
 Console::Console(QWidget *parent) : QTextEdit()
 {
+
+
+
     setTextColor(QColor(255,255,255));
     setFont(QFont("Terminal", 14));
 
@@ -20,7 +23,7 @@ Console::Console(QWidget *parent) : QTextEdit()
 }
 
 void Console::Begin(){
-    timer->start(500);
+    timer->start(800);
 }
 
 void Console::InsertText(){
