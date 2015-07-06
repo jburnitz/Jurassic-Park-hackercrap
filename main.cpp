@@ -14,21 +14,17 @@ int main(int argc, char *argv[])
     QMainWindow w;
     w.setWindowTitle("Central Park Control Console");
 
-    Console *console = new Console();
-
-    if(a.desktop()->numScreens() > 1){
-        console->setGeometry(a.desktop()->availableGeometry(1));
-    }
+    Console console;
 
     w.setCentralWidget(console);
 
-    Newman *newman = new Newman();
+    Newman newman;
 
-    QObject::connect( console, SIGNAL(StartHackerCrap()), newman, SLOT(Start()));
+    QObject::connect( console, SIGNAL(StartHackerCrap()), newman, SLOT(PlayAnimation()) );
 
     w.showFullScreen();
-    newman->showFullScreen();
-    console->Begin();
+    newman.showFullScreen();
+    console.Begin();
 
     return a.exec();
 }
