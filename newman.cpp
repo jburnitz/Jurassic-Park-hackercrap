@@ -23,7 +23,7 @@ Newman::Newman(QWidget *parent) : QMainWindow(parent)
     this->setPalette(palette);
 
     QLabel *lbl = new QLabel();
-    gif = new QMovie(":/ahahah.gif");
+    gif = new QMovie(":/animations/ahahah.gif");
     lbl->setPalette(palette);
     lbl->setMovie(gif);
 
