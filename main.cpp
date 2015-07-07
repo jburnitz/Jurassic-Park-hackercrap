@@ -16,14 +16,16 @@ int main(int argc, char *argv[])
 
     Console console;
 
-    w.setCentralWidget(console);
+    w.setCentralWidget(&console);
 
     Newman newman;
 
-    QObject::connect( console, SIGNAL(StartHackerCrap()), newman, SLOT(PlayAnimation()) );
+    QObject::connect( &console, SIGNAL(StartHackerCrap()), &newman, SLOT(PlayAnimation()) );
 
     w.showFullScreen();
-    newman.showFullScreen();
+    //w.show();
+    //newman.showFullScreen();
+    newman.show();
     console.Begin();
 
     return a.exec();

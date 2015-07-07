@@ -16,7 +16,7 @@ private:
 signals:
 
 public slots:
-    void Start();
+    void PlayAnimation();
 };
 
 #endif // NEWMAN_H

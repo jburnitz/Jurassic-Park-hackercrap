@@ -31,7 +31,7 @@ Newman::Newman(QWidget *parent) : QMainWindow(parent)
 
 }
 
-void Newman::Start(){
+void Newman::PlayAnimation(){
     gif->start();
 }
 

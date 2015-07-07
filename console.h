@@ -7,6 +7,7 @@
 
 class QTimer;
 class QScrollBar;
+class QKeyEvent;
 
 class Console : public QTextEdit
 {
@@ -20,6 +21,10 @@ private:
     int lineCounter;
     QTimer *timer;
     QScrollBar *sBar;
+    QString inputLine;
+
+    void handleInputLine();
+    void keyPressEvent(QKeyEvent *e);
 
 private slots:
     void InsertText();
@@ -29,6 +34,7 @@ signals:
    void StartHackerCrap();
 };
 
+ const QString prompt = "\n>";
  const QString lines[] = { "Jurassic Park, Security System Interface\n",
                            "Version 4.0.5, Alpha E\n",
                            "Ready...\n>",
