@@ -13,10 +13,6 @@ Console::Console(QWidget *parent) : QTextEdit()
     inputLine = "";
 
     //setup the widget if possible to the right screen
-    if( QApplication::desktop()->numScreens() > 1){
-        setGeometry(QApplication::desktop()->availableGeometry(1));
-        qDebug() << Q_FUNC_INFO << this->size();
-    }
 
     setTextColor(QColor(255,255,255));
     setFont(QFont("Terminal", 14));
@@ -51,6 +47,7 @@ void Console::keyPressEvent(QKeyEvent *e){
         insertPlainText(prompt);
         inputLine = "";
     }
+    //else if( QKeyEvent::)
     else{
         insertPlainText(e->text());
         inputLine.append(e->text());
