@@ -1,6 +1,6 @@
 #include <QApplication>
 #include <QMainWindow>
-
+#include <QDebug>
 #include <QObject>
 #include <QDesktopWidget>
 
@@ -21,16 +21,22 @@ int main(int argc, char *argv[])
 
     Console console;
 
+    //setup the widget if possible to the right screen
+    if( QApplication::desktop()->numScreens() > 1){
+        w.setGeometry(QApplication::desktop()->availableGeometry(1));
+        qDebug() << Q_FUNC_INFO << w.size();
+    }
     w.setCentralWidget(&console);
 
+	//the laughing Dennis nedry
     Newman newman;
 
     QObject::connect( &console, SIGNAL(StartHackerCrap()), &newman, SLOT(PlayAnimation()) );
 
     w.showFullScreen();
     //w.show();
-    //newman.showFullScreen();
-    newman.show();
+    newman.showFullScreen();
+    //newman.show();
     console.Begin();
 
     return a.exec();
