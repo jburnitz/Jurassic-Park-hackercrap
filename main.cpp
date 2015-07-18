@@ -6,9 +6,14 @@
 
 #include "console.h"
 #include "newman.h"
+#include "runguard.h"
 
 int main(int argc, char *argv[])
 {
+    RunGuard guard( "some_random_key" );
+    if ( !guard.tryToRun() )
+        return 0;
+
     QApplication a(argc, argv);
 
     QMainWindow w;

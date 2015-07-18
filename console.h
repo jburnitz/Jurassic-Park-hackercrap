@@ -8,8 +8,9 @@
 class QTimer;
 class QScrollBar;
 class QKeyEvent;
+class QMainWindow;
 
-class Console : public QTextEdit
+class Console : public QMainWindow
 {
     Q_OBJECT
 
@@ -19,6 +20,7 @@ public:
 
 private:
     int lineCounter;
+    QTextEdit textEditor;
     QTimer *timer;
     QScrollBar *sBar;
     QString inputLine;

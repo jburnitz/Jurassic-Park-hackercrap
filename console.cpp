@@ -5,8 +5,9 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include <QDesktopWidget>
+#include <QMainWindow>
 
-Console::Console(QWidget *parent) : QTextEdit()
+Console::Console(QWidget *parent) : QMainWindow()
 {
     //private initializations
     lineCounter = 0;
@@ -14,20 +15,20 @@ Console::Console(QWidget *parent) : QTextEdit()
 
     //setup the widget if possible to the right screen
     if( QApplication::desktop()->numScreens() > 1){
-        setGeometry(QApplication::desktop()->availableGeometry(1));
+        this->setGeometry(QApplication::desktop()->availableGeometry(1));
         qDebug() << Q_FUNC_INFO << this->size();
     }
 
-    setTextColor(QColor(255,255,255));
-    setFont(QFont("Terminal", 14));
+    textEditor.setTextColor(QColor(255,255,255));
+    textEditor.setFont(QFont("Terminal", 14));
 
-    QPalette p = palette();
+    QPalette p = textEditor.palette();
     p.setColor(QPalette::Base, QColor(0, 0, 230).light());
-    setPalette(p);
+    textEditor.setPalette(p);
 
     //autoscroll the textbox
-    sBar = this->verticalScrollBar();
-    sBar->setValue(sBar->maximum());
+    sBar = textEditor.verticalScrollBar();
+    sBar.setValue(sBar.maximum());
 
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(InsertText()) );
@@ -37,8 +38,8 @@ void Console::Begin(){
     //timer->start(800);
 
     //registers the callback keyPressEvent()
-    insertPlainText(prompt);
-    this->grabKeyboard();
+    textEditor.insertPlainText(prompt);
+    textEditor.grabKeyboard();
 }
 
 //callback
