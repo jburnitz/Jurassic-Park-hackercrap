@@ -2,13 +2,15 @@
 #define CONSOLE_H
 
 #include <QObject>
-#include <QTextEdit>
+//#include <QTextEdit>
 #include <QString>
+#include <QMainWindow>
 
 class QTimer;
+class QTextEdit;
 class QScrollBar;
 class QKeyEvent;
-class QMainWindow;
+//class QMainWindow;
 
 class Console : public QMainWindow
 {
@@ -20,7 +22,7 @@ public:
 
 private:
     int lineCounter;
-    QTextEdit textEditor;
+    QTextEdit* textEditor;
     QTimer *timer;
     QScrollBar *sBar;
     QString inputLine;

@@ -10,33 +10,31 @@
 
 int main(int argc, char *argv[])
 {
+    /*
     RunGuard guard( "some_random_key" );
     if ( !guard.tryToRun() )
         return 0;
+    */
 
     QApplication a(argc, argv);
 
-    QMainWindow w;
-    w.setWindowTitle("Central Park Control Console");
-
     Console console;
+    console.setWindowTitle("Central Park Control Console");
 
     //setup the widget if possible to the right screen
     if( QApplication::desktop()->numScreens() > 1){
-        w.setGeometry(QApplication::desktop()->availableGeometry(1));
-        qDebug() << Q_FUNC_INFO << w.size();
+        console.setGeometry(QApplication::desktop()->availableGeometry(1));
+        qDebug() << Q_FUNC_INFO << console.size();
     }
-    w.setCentralWidget(&console);
 
 	//the laughing Dennis nedry
     Newman newman;
 
     QObject::connect( &console, SIGNAL(StartHackerCrap()), &newman, SLOT(PlayAnimation()) );
 
-    w.showFullScreen();
-    //w.show();
+    console.showFullScreen();
     newman.showFullScreen();
-    //newman.show();
+
     console.Begin();
 
     return a.exec();
