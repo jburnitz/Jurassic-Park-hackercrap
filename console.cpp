@@ -1,4 +1,6 @@
 #include "console.h"
+#include "commandparser.h"
+
 #include <QTimer>
 #include <QScrollBar>
 #include <QApplication>
@@ -10,8 +12,9 @@
 
 Console::Console(QWidget *parent) : QMainWindow()
 {
-    //private initializations
+    parser = new CommandParser();
     lineCounter = 0;
+    counter=0;
     inputLine = "";
     textEditor = new QTextEdit(this);
 
@@ -28,6 +31,10 @@ Console::Console(QWidget *parent) : QMainWindow()
 
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(InsertText()) );
+
+    //so we can track focus events
+    this->setFocusPolicy(Qt::StrongFocus);
+    this->setWindowFlags(Qt::WindowStaysOnTopHint);
 }
 
 void Console::Begin(){
@@ -42,7 +49,14 @@ void Console::Begin(){
     textEditor->insertPlainText(lines[lineCounter++]);
 }
 
-//callback
+void Console::focusOutEvent(QFocusEvent *e){
+    qDebug() << "focused out!";
+    if(e->reason() == Qt::ActiveWindowFocusReason){
+
+    }
+}
+
+//keypress callback
 void Console::keyPressEvent(QKeyEvent *e){
 
     if( e->key() == Qt::Key_Return ){
@@ -61,9 +75,23 @@ void Console::keyPressEvent(QKeyEvent *e){
 
 //parse input text
 void Console::handleInputLine(){
-    timer->start(800);
+    //timer->start(800);
     if( inputLine.compare("exit", Qt::CaseInsensitive) ==0 )
         QApplication::exit(0);
+    else{
+        QStringList ret = parser->Parse(inputLine.split(" "));
+        foreach (QString str , ret){
+            textEditor->insertPlainText("\n"+str);
+        }
+        //this scrolls the console
+        sBar->setValue(sBar->maximum());
+    }
+    this->counter++;
+    if(counter >= 3){
+        lineCounter = 67;
+        timer->start(500);
+        QTimer::singleShot(1000, this, SLOT(fireEvents()) );
+    }
 
 }
 

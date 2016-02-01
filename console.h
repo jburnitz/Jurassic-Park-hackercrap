@@ -10,6 +10,7 @@ class QTimer;
 class QTextEdit;
 class QScrollBar;
 class QKeyEvent;
+class CommandParser;
 //class QMainWindow;
 
 class Console : public QMainWindow
@@ -21,13 +22,16 @@ public:
     void Begin();
 
 private:
+    CommandParser* parser;
     int lineCounter;
     QTextEdit* textEditor;
     QTimer *timer;
     QScrollBar *sBar;
     QString inputLine;
+    int counter;
 
     void handleInputLine();
+    void focusOutEvent(QFocusEvent *e);
     void keyPressEvent(QKeyEvent *e);
 
 private slots:

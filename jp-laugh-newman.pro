@@ -15,12 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     console.cpp \
     newman.cpp \
-    runguard.cpp
+    runguard.cpp \
+    commandparser.cpp
 
 HEADERS  += \
     console.h \
     newman.h \
-    runguard.h
+    runguard.h \
+    commandparser.h
 
 FORMS    +=
 
