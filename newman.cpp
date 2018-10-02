@@ -29,9 +29,12 @@ Newman::Newman(QWidget *parent) : QMainWindow(parent)
 
     setCentralWidget(lbl);
 
+    this->setWindowFlags(Qt::WindowStaysOnTopHint);
+
+
 }
 
-void Newman::Start(){
+void Newman::PlayAnimation(){
     gif->start();
 }
 

@@ -2,13 +2,18 @@
 #define CONSOLE_H
 
 #include <QObject>
-#include <QTextEdit>
+//#include <QTextEdit>
 #include <QString>
+#include <QMainWindow>
 
 class QTimer;
+class QTextEdit;
 class QScrollBar;
+class QKeyEvent;
+class CommandParser;
+//class QMainWindow;
 
-class Console : public QTextEdit
+class Console : public QMainWindow
 {
     Q_OBJECT
 
@@ -17,9 +22,17 @@ public:
     void Begin();
 
 private:
+    CommandParser* parser;
     int lineCounter;
+    QTextEdit* textEditor;
     QTimer *timer;
     QScrollBar *sBar;
+    QString inputLine;
+    int counter;
+
+    void handleInputLine();
+    void focusOutEvent(QFocusEvent *e);
+    void keyPressEvent(QKeyEvent *e);
 
 private slots:
     void InsertText();
@@ -29,6 +42,7 @@ signals:
    void StartHackerCrap();
 };
 
+ const QString prompt = "\n>";
  const QString lines[] = { "Jurassic Park, Security System Interface\n",
                            "Version 4.0.5, Alpha E\n",
                            "Ready...\n>",

@@ -1,34 +1,41 @@
 #include <QApplication>
 #include <QMainWindow>
-
+#include <QDebug>
 #include <QObject>
 #include <QDesktopWidget>
 
 #include "console.h"
 #include "newman.h"
+#include "runguard.h"
 
 int main(int argc, char *argv[])
 {
+    /*
+    RunGuard guard( "some_random_key" );
+    if ( !guard.tryToRun() )
+        return 0;
+    */
+
     QApplication a(argc, argv);
 
-    QMainWindow w;
-    w.setWindowTitle("Central Park Control Console");
+    Console console;
+    console.setWindowTitle("Central Park Control Console");
 
-    Console *console = new Console();
-
-    if(a.desktop()->numScreens() > 1){
-        console->setGeometry(a.desktop()->availableGeometry(1));
+    //setup the widget if possible to the right screen
+    if( QApplication::desktop()->numScreens() > 1){
+        console.setGeometry(QApplication::desktop()->availableGeometry(1));
+        qDebug() << Q_FUNC_INFO << console.size();
     }
 
-    w.setCentralWidget(console);
+	//the laughing Dennis nedry
+    Newman newman;
 
-    Newman *newman = new Newman();
+    QObject::connect( &console, SIGNAL(StartHackerCrap()), &newman, SLOT(PlayAnimation()) );
 
-    QObject::connect( console, SIGNAL(StartHackerCrap()), newman, SLOT(Start()));
+    console.showFullScreen();
+    newman.showFullScreen();
 
-    w.showFullScreen();
-    newman->showFullScreen();
-    console->Begin();
+    console.Begin();
 
     return a.exec();
 }
